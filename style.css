@@ -1,0 +1,472 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+
+
+:root{
+  --headline-font:"Montserrat",serif;
+  --body-font:"Source Sans 3",sans-serif;
+  --primary-green:#1b4332;
+  --accent-green:#2d6a4f;
+}
+
+/* Base */
+html,body{
+  font-family:var(--body-font);
+  color:#333;
+  height:100%;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  background:#000;
+}
+body{
+  background:url("images/LMCM BLDG.jpg") center/cover no-repeat;
+  animation:fadeInPage .5s ease-in-out forwards;
+}
+@keyframes fadeInPage{from{opacity:0}to{opacity:1}}
+
+main{
+  position:relative;
+  z-index:10;
+  flex:1;
+  display:block;
+  padding-top:110px; /* space for fixed header */
+}
+main div{
+  font-size:1.1rem;
+  margin-top:15px;
+  line-height:1.6;
+  text-align:left;
+  padding-left:10%;
+  position:relative;
+  z-index:1;
+}
+
+/* Background motion (Ken Burns) + overlays */
+.bg-zoom-container{
+  position:fixed; inset:0;
+  z-index:-1;
+  overflow:hidden;
+}
+.bg-zoom-container::after{
+  content:"";
+  position:absolute;
+  inset:-5%;
+  background:url("images/LMCM BLDG.jpg") center/cover no-repeat;
+  animation:kenBurns 10s ease-in-out infinite alternate;
+}
+@keyframes kenBurns{
+  0%{transform:scale(1) translate(0,0)}
+  50%{transform:scale(1.1) translate(-1%,-1%)}
+  100%{transform:scale(1.05) translate(1%,1%)}
+}
+
+#particle-canvas{
+  position:fixed; inset:0;
+  z-index:1;
+  pointer-events:none;
+}
+.grain-overlay{
+  position:fixed; inset:0;
+  background:url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity:.05;
+  pointer-events:none;
+  z-index:3;
+}
+.geometric-overlay{
+  position:fixed; top:0; left:0;
+  width:65%; height:100%;
+  background:linear-gradient(to right, rgb(255,255,255) 0%, rgba(255, 255, 255, 0.171) 100%);
+  clip-path:ellipse(85% 90% at 0% 50%);
+  z-index:4;
+}
+
+/* Header / Navigation */
+header{
+  position:fixed;
+  top:15px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:1000;
+  width:95%;
+  max-width:3000px;
+  padding:2px 25px;
+  border-radius:100px;
+  overflow:hidden;
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+
+  background:linear-gradient(135deg, rgba(6,18,48,.88) 0%, rgba(10,35,70,.65) 45%, rgba(6,18,48,.82) 100%) !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+
+  box-shadow:
+    0 18px 45px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.10) !important;
+
+  animation:slideDownHeader 1.2s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes slideDownHeader{
+  from{transform:translate(-50%,-150%);opacity:0}
+  to{transform:translate(-50%,0);opacity:.8}
+}
+header::before{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(circle at 20% 10%, rgba(255,255,255,.18) 0%, rgba(255,255,255,.05) 25%, transparent 60%);
+  pointer-events:none;
+  opacity:.9;
+}
+header::after{
+  content:"";
+  position:absolute;
+  left:10%; right:10%;
+  bottom:-1px;
+  height:2px;
+  background:linear-gradient(90deg, transparent 0%, rgba(76,201,240,.55) 20%, rgba(255,255,255,.35) 50%, rgba(76,201,240,.55) 80%, transparent 100%);
+  filter:blur(.2px);
+  pointer-events:none;
+  animation:headerAccentSweep 3.8s ease-in-out infinite;
+}
+@keyframes headerAccentSweep{
+  0%{transform:translateX(-6%);opacity:.65}
+  50%{transform:translateX(6%);opacity:1}
+  100%{transform:translateX(-6%);opacity:.65}
+}
+
+header nav{
+  margin:0 auto;
+  position:relative;
+  z-index:2;
+  padding-bottom:5px;
+}
+header nav a{
+  font-family:"Montserrat",sans-serif !important;
+  font-size:.78rem !important;
+  font-weight:700 !important;
+  letter-spacing:2px !important;
+  text-transform:uppercase !important;
+
+  color:#fff !important;
+  margin:0 15px;
+  padding:10px 12px !important;
+  border-radius:999px;
+  position:relative;
+  isolation:isolate;
+  transition:all .3s ease;
+}
+header nav a::after{
+  content:"";
+  position:absolute;
+  left:14px; right:14px;
+  bottom:6px;
+  height:2px;
+  border-radius:99px;
+  background:linear-gradient(90deg, rgba(76,201,240,0) 0%, rgba(76,201,240,.75) 50%, rgba(76,201,240,0) 100%);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .35s cubic-bezier(.19,1,.22,1);
+  opacity:.9;
+}
+header nav a:hover{
+  background:rgba(255,255,255,.06);
+  transform:translateY(-1px);
+  color:#eaf6ff !important;
+  text-shadow:0 0 12px rgba(76,201,240,.45);
+}
+header nav a:hover::after{transform:scaleX(1)}
+header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
+
+/* Hero */
+.hero-section{
+  min-height:calc(100vh - 100px);
+  display:flex;
+  align-items:center;
+  padding:0 3%;
+}
+.hero-container{
+  max-width:650px;
+  animation:slideUpContent 1.5s cubic-bezier(.16,1,.3,1) .5s both;
+
+  /* ✅ ADDED: push hero content a bit LEFT and UP */
+  transform: translate(-22px, -18px);
+}
+@keyframes slideUpContent{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+#typing-effect{
+  font-family:var(--headline-font);
+  font-size:2.2rem;
+  font-weight:800;
+  color:var(--primary-green);
+  line-height:1.05;
+  margin: -140px 0 25px -50px;
+  max-width:520px;
+  filter:drop-shadow(0 5px 15px rgba(0,0,0,.05));
+}
+
+/* ✅ HERO DESCRIPTION (kept clean, no extra card design) */
+.hero-description{
+  font-family:'Merriweather',serif;
+  font-size:1.15rem;
+  font-weight:400;
+  font-style:italic;
+  color:#222;
+  line-height:1.8;
+  margin:0 0 40px;
+  border-left:4px solid var(--primary-green);
+  padding-left:25px;
+  margin-left:-80px;
+  max-width:500px;
+  transition:color .5s ease, transform .5s ease;
+}
+
+/* Hero buttons row */
+.hero-buttons{
+  display:flex;
+  gap:15px;
+  margin-top:20px;
+  margin-left:-100px;
+}
+
+/* Buttons base */
+.btn-primary-custom,.btn-outline-custom{
+  padding:16px 38px;
+  border-radius:2px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:.75rem;
+  text-decoration:none !important;
+  transition:all .5s cubic-bezier(.19,1,.22,1);
+}
+.button:active{transform:scale(.96);opacity:.8}
+
+/* ✅ HERO BUTTONS DESIGN (kept) */
+.btn-primary-custom,.btn-outline-custom{
+  border-radius:14px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 14px 30px rgba(0,0,0,.12);
+}
+.btn-primary-custom::after,
+.btn-outline-custom::after{
+  content:"";
+  position:absolute;
+  top:-30%;
+  left:-30%;
+  width:60%;
+  height:160%;
+  background:linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.45) 50%, rgba(255,255,255,0) 100%);
+  transform:rotate(18deg) translateX(-140%);
+  transition:transform .8s cubic-bezier(.19,1,.22,1);
+  pointer-events:none;
+  opacity:.85;
+}
+.btn-primary-custom:hover::after,
+.btn-outline-custom:hover::after{
+  transform:rotate(18deg) translateX(260%);
+}
+
+/* Primary */
+.btn-primary-custom{
+  background:linear-gradient(135deg, rgba(27,67,50,1) 0%, rgba(45,106,79,1) 55%, rgba(27,67,50,1) 100%);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:
+    0 16px 34px rgba(27,67,50,.25),
+    0 0 0 1px rgba(255,255,255,.08) inset;
+}
+
+/* Outline */
+.btn-outline-custom{
+  border:1px solid rgba(27,67,50,.7);
+  color:var(--primary-green);
+  background:rgba(255,255,255,.55);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+/* Hover */
+.btn-primary-custom:hover{
+  transform:translateY(-6px) scale(1.05);
+  box-shadow:0 18px 40px rgba(27,67,50,.32);
+  color:#fff;
+}
+
+/* ripple helper inserted via JS */
+.ripple-effect{
+  position:absolute;
+  border-radius:50%;
+  background:rgba(255,255,255,0.6);
+  pointer-events:none;
+  transform:scale(0);
+  animation:rippleAnim 0.6s linear;
+}
+@keyframes rippleAnim{
+  to{transform:scale(2);opacity:0;}
+}
+.btn-outline-custom:hover{
+  background:rgba(27,67,50,.95);
+  color:#fff;
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(0,0,0,.18);
+}
+
+/* Focus (keyboard) */
+.btn-primary-custom:focus,
+.btn-outline-custom:focus{
+  outline:none;
+  box-shadow:0 0 0 3px rgba(45,106,79,.25), 0 18px 40px rgba(0,0,0,.18);
+}
+
+/* Hero entry effects */
+.hero-container #typing-effect,
+.hero-container .hero-description{
+  opacity:0;
+  transform:translateY(18px);
+}
+.hero-container.enter #typing-effect{animation:titlePopIn 1s cubic-bezier(.16,1,.3,1) forwards}
+.hero-container.enter .hero-description{animation:quoteFadeIn 1s cubic-bezier(.16,1,.3,1) .18s forwards}
+
+@keyframes titlePopIn{
+  0%{opacity:0;transform:translateY(18px) scale(.98);filter:blur(1px)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+@keyframes quoteFadeIn{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:translateY(0)}}
+
+/* Footer */
+footer{
+  position:fixed !important;
+  left:0; bottom:0;
+  width:100%;
+  z-index:9999;
+
+  /* ✅ UPDATED: match the header color/style */
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  background:linear-gradient(135deg, rgba(6,18,48,.88) 0%, rgba(10,35,70,.65) 45%, rgba(6,18,48,.82) 100%) !important;
+  border-top:1px solid rgba(255,255,255,.18) !important;
+  box-shadow:
+    0 -18px 45px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.10) !important;
+
+ height:50px;                 /* exact footer height */
+display:flex;
+align-items:center; 
+
+  opacity:0;
+  transform:translateY(40px);
+  animation:footerReveal 1s ease-out forwards;
+
+  /* ✅ ADDED: make footer text visible + best contrast */
+  color:#f3f7ff;                 /* readable on dark blue glass */
+  text-shadow:0 2px 10px rgba(0,0,0,.45);
+}
+@keyframes footerReveal{to{opacity:1;transform:translateY(0)}}
+
+/* ✅ ADDED: ensure all common footer text/elements inherit visible color */
+footer, footer *{
+  color:inherit;
+}
+footer a{
+  color:#eaf6ff;
+  text-decoration:none;
+}
+footer a:hover{
+  color:#ffffff;
+  text-shadow:0 0 14px rgba(76,201,240,.35);
+}
+
+/* About section */
+.about-section{
+  position:relative;
+  z-index:10;
+  padding:130px 0;
+  background:rgba(255,255,255,.96);
+  border:solid rgba(0,0,0,.06);
+  border-width:1px 0;
+}
+.about-wrap{padding:0 10px}
+
+/* About image (photo only) ✅ UPDATED FOR "COME FROM OUTSIDE" */
+.about-image{
+  width:80%;
+  height:600px;
+  object-fit:cover;
+  display:block;
+  border-radius:12px;
+  background:transparent;
+  box-shadow:none;
+
+  /* existing */
+  --about-parallax:0px;
+  --about-scale:1;
+
+  /* ✅ NEW: entrance vars controlled by JS */
+  --about-enter-x: 220px;     /* from right */
+  --about-enter-y: 120px;     /* from below */
+  --about-enter-rot: 8deg;    /* slight rotate */
+  --about-enter-opacity: 0;   /* hidden until scroll */
+
+  opacity: var(--about-enter-opacity);
+
+  /* ✅ combine entrance + parallax */
+  transform:
+    translateX(var(--about-enter-x))
+    translateY(calc(var(--about-enter-y) + var(--about-parallax)))
+    rotate(var(--about-enter-rot))
+    scale(var(--about-scale));
+
+  transition:
+    transform .9s cubic-bezier(.16,1,.3,1),
+    filter .9s cubic-bezier(.16,1,.3,1),
+    opacity .9s cubic-bezier(.16,1,.3,1);
+
+  filter:saturate(1.06) contrast(1.05) brightness(1.02);
+  will-change:transform, opacity;
+}
+
+/* Scroll reveal */
+.reveal-on-scroll{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.reveal-on-scroll.in-view{opacity:1;transform:translateY(0)}
+
+/* Image frame FX (if JS adds .about-image-frame wrapper) */
+.about-image-frame{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 22px 55px rgba(0,0,0,.18), 0 10px 24px rgba(0,0,0,.10);
+}
+.about-image-frame .about-image{position:relative;z-index:0}
+.about-image-frame:hover .about-image{
+  --about-scale:1.07;
+  filter:saturate(1.14) contrast(1.08) brightness(1.04)
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion:reduce){
+  .about-image,.about-image-frame,.reveal-on-scroll{
+    animation:none !important;
+    transition:none !important;
+    transform:none !important;
+    filter:none !important;
+    opacity:1 !important;
+  }
+}
+
+/* Mobile */
+@media (max-width:768px){
+  .about-section{padding:55px 0}
+  .about-image{height:260px}
+
+  /* ✅ mobile entrance softer */
+  .about-image{
+    --about-enter-x: 140px;
+    --about-enter-y: 120px;
+    --about-enter-rot: 6deg;
+  }
+}
