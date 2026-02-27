@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
 
-
 :root{
   --headline-font:"Montserrat",serif;
   --body-font:"Source Sans 3",sans-serif;
@@ -187,8 +186,6 @@ header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
 .hero-container{
   max-width:650px;
   animation:slideUpContent 1.5s cubic-bezier(.16,1,.3,1) .5s both;
-
-  /* ✅ ADDED: push hero content a bit LEFT and UP */
   transform: translate(-22px, -18px);
 }
 @keyframes slideUpContent{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
@@ -204,7 +201,6 @@ header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
   filter:drop-shadow(0 5px 15px rgba(0,0,0,.05));
 }
 
-/* ✅ HERO DESCRIPTION (kept clean, no extra card design) */
 .hero-description{
   font-family:'Merriweather',serif;
   font-size:1.15rem;
@@ -220,7 +216,6 @@ header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
   transition:color .5s ease, transform .5s ease;
 }
 
-/* Hero buttons row */
 .hero-buttons{
   display:flex;
   gap:15px;
@@ -228,7 +223,6 @@ header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
   margin-left:-100px;
 }
 
-/* Buttons base */
 .btn-primary-custom,.btn-outline-custom{
   padding:16px 38px;
   border-radius:2px;
@@ -241,7 +235,6 @@ header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
 }
 .button:active{transform:scale(.96);opacity:.8}
 
-/* ✅ HERO BUTTONS DESIGN (kept) */
 .btn-primary-custom,.btn-outline-custom{
   border-radius:14px;
   position:relative;
@@ -267,7 +260,6 @@ header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
   transform:rotate(18deg) translateX(260%);
 }
 
-/* Primary */
 .btn-primary-custom{
   background:linear-gradient(135deg, rgba(27,67,50,1) 0%, rgba(45,106,79,1) 55%, rgba(27,67,50,1) 100%);
   color:#fff;
@@ -277,7 +269,6 @@ header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
     0 0 0 1px rgba(255,255,255,.08) inset;
 }
 
-/* Outline */
 .btn-outline-custom{
   border:1px solid rgba(27,67,50,.7);
   color:var(--primary-green);
@@ -286,14 +277,12 @@ header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
   -webkit-backdrop-filter:blur(10px);
 }
 
-/* Hover */
 .btn-primary-custom:hover{
   transform:translateY(-6px) scale(1.05);
   box-shadow:0 18px 40px rgba(27,67,50,.32);
   color:#fff;
 }
 
-/* ripple helper inserted via JS */
 .ripple-effect{
   position:absolute;
   border-radius:50%;
@@ -312,14 +301,12 @@ header nav a:active{transform:translateY(0) scale(.98);opacity:.92}
   box-shadow:0 18px 40px rgba(0,0,0,.18);
 }
 
-/* Focus (keyboard) */
 .btn-primary-custom:focus,
 .btn-outline-custom:focus{
   outline:none;
   box-shadow:0 0 0 3px rgba(45,106,79,.25), 0 18px 40px rgba(0,0,0,.18);
 }
 
-/* Hero entry effects */
 .hero-container #typing-effect,
 .hero-container .hero-description{
   opacity:0;
@@ -341,7 +328,6 @@ footer{
   width:100%;
   z-index:9999;
 
-  /* ✅ UPDATED: match the header color/style */
   backdrop-filter:blur(12px);
   -webkit-backdrop-filter:blur(12px);
   background:linear-gradient(135deg, rgba(6,18,48,.88) 0%, rgba(10,35,70,.65) 45%, rgba(6,18,48,.82) 100%) !important;
@@ -350,67 +336,56 @@ footer{
     0 -18px 45px rgba(0,0,0,.45),
     inset 0 1px 0 rgba(255,255,255,.10) !important;
 
- height:50px;                 /* exact footer height */
-display:flex;
-align-items:center; 
+  height:50px;
+  display:flex;
+  align-items:center;
 
   opacity:0;
   transform:translateY(40px);
   animation:footerReveal 1s ease-out forwards;
 
-  /* ✅ ADDED: make footer text visible + best contrast */
-  color:#f3f7ff;                 /* readable on dark blue glass */
+  color:#f3f7ff;
   text-shadow:0 2px 10px rgba(0,0,0,.45);
 }
 @keyframes footerReveal{to{opacity:1;transform:translateY(0)}}
 
-/* ✅ ADDED: ensure all common footer text/elements inherit visible color */
-footer, footer *{
-  color:inherit;
-}
-footer a{
-  color:#eaf6ff;
-  text-decoration:none;
-}
-footer a:hover{
-  color:#ffffff;
-  text-shadow:0 0 14px rgba(76,201,240,.35);
-}
+footer, footer *{ color:inherit; }
+footer a{ color:#eaf6ff; text-decoration:none; }
+footer a:hover{ color:#ffffff; text-shadow:0 0 14px rgba(76,201,240,.35); }
 
 /* About section */
 .about-section{
   position:relative;
   z-index:10;
-  padding:130px 0;
+  padding:200px 0;
   background:rgba(255,255,255,.96);
   border:solid rgba(0,0,0,.06);
   border-width:1px 0;
 }
 .about-wrap{padding:0 10px}
 
-/* About image (photo only) ✅ UPDATED FOR "COME FROM OUTSIDE" */
 .about-image{
-  width:80%;
-  height:600px;
-  object-fit:cover;
+  width:100%;
+  height:auto;
+  max-height:520px;
+  object-fit:contain;
+  object-position:center;
   display:block;
-  border-radius:12px;
+
+  border-radius:0;
   background:transparent;
   box-shadow:none;
 
-  /* existing */
   --about-parallax:0px;
   --about-scale:1;
 
-  /* ✅ NEW: entrance vars controlled by JS */
-  --about-enter-x: 220px;     /* from right */
-  --about-enter-y: 120px;     /* from below */
-  --about-enter-rot: 8deg;    /* slight rotate */
-  --about-enter-opacity: 0;   /* hidden until scroll */
+  --about-enter-x: 220px;
+  --about-enter-y: 120px;
+  --about-enter-rot: 8deg;
+  --about-enter-opacity: 0;
 
   opacity: var(--about-enter-opacity);
 
-  /* ✅ combine entrance + parallax */
   transform:
     translateX(var(--about-enter-x))
     translateY(calc(var(--about-enter-y) + var(--about-parallax)))
@@ -426,7 +401,6 @@ footer a:hover{
   will-change:transform, opacity;
 }
 
-/* Scroll reveal */
 .reveal-on-scroll{
   opacity:0;
   transform:translateY(18px);
@@ -434,20 +408,18 @@ footer a:hover{
 }
 .reveal-on-scroll.in-view{opacity:1;transform:translateY(0)}
 
-/* Image frame FX (if JS adds .about-image-frame wrapper) */
 .about-image-frame{
   position:relative;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 22px 55px rgba(0,0,0,.18), 0 10px 24px rgba(0,0,0,.10);
+  border-radius:0;
+  overflow:visible;
+  box-shadow:none;
 }
 .about-image-frame .about-image{position:relative;z-index:0}
 .about-image-frame:hover .about-image{
-  --about-scale:1.07;
-  filter:saturate(1.14) contrast(1.08) brightness(1.04)
+  --about-scale:1.02;
+  filter:saturate(1.10) contrast(1.06) brightness(1.03);
 }
 
-/* Reduce motion */
 @media (prefers-reduced-motion:reduce){
   .about-image,.about-image-frame,.reveal-on-scroll{
     animation:none !important;
@@ -458,15 +430,266 @@ footer a:hover{
   }
 }
 
-/* Mobile */
 @media (max-width:768px){
   .about-section{padding:55px 0}
-  .about-image{height:260px}
-
-  /* ✅ mobile entrance softer */
   .about-image{
+    max-height:280px;
     --about-enter-x: 140px;
     --about-enter-y: 120px;
     --about-enter-rot: 6deg;
+  }
+}
+
+/* =========================================================
+   ✅ NEW: WAVY AUTO-PLAY TEXT CAROUSEL BAND (Between sections)
+   ========================================================= */
+.wavy-text-band{
+  position:relative;
+  z-index:30;
+  background:transparent;
+  padding:0;
+}
+
+.wavy-wrap{
+  position:relative;
+  width:100%;
+  background:#3c93d1; /* ✅ like your screenshot blue */
+  overflow:hidden;
+}
+
+.wave{
+  position:absolute;
+  left:0; right:0;
+  height:54px;
+  z-index:2;
+  pointer-events:none;
+}
+.wave svg{
+  width:100%;
+  height:100%;
+  display:block;
+}
+.wave svg path{
+  fill:#f7f9fb; /* ✅ matches products bg so it blends */
+}
+
+.wave-top{ top:-1px; transform:rotate(180deg); }
+.wave-bottom{ bottom:-1px; }
+
+.wavy-viewport{
+  position:relative;
+  z-index:1;
+  padding:34px 0 34px; /* space inside the band */
+  overflow:hidden;
+}
+
+/* track */
+.wavy-track{
+  display:flex;
+  gap:34px;
+  align-items:center;
+  width:max-content;
+  will-change:transform;
+  animation:wavyMarquee 18s linear infinite;
+  padding-left:30px;
+}
+
+@keyframes wavyMarquee{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(var(--wavy-to, -50%)); }
+}
+
+.wavy-item{
+  min-width:260px;
+  padding:10px 14px;
+  text-align:center;
+  color:#ffffff;
+  user-select:none;
+  white-space:nowrap;
+  opacity:.95;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.18));
+}
+
+.wavy-small{
+  font-family:"Merriweather", serif;
+  font-style:italic;
+  font-size:18px;
+  opacity:.9;
+  margin-bottom:2px;
+}
+
+.wavy-big{
+  font-family:"Montserrat", sans-serif;
+  font-weight:800;
+  font-size:28px;
+  line-height:1.02;
+  letter-spacing:1px;
+}
+
+.wavy-est{
+  font-family:"Montserrat", sans-serif;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:3px;
+  opacity:.85;
+  margin-top:6px;
+}
+
+/* nicer on small screens */
+@media(max-width:768px){
+  .wavy-viewport{ padding:28px 0; }
+  .wavy-item{ min-width:220px; }
+  .wavy-big{ font-size:22px; }
+}
+
+/* pause on hover (optional nice UX) */
+.wavy-wrap:hover .wavy-track{
+  animation-play-state:paused;
+}
+
+/* ================= PRODUCTS SECTION ================= */
+
+.products-section{
+  padding:120px 0;
+  background:#f7f9fb;
+  position:relative;
+  z-index:20;
+}
+
+.products-kicker{
+  font-size:.8rem;
+  letter-spacing:2px;
+  font-weight:700;
+  color:#1b4332;
+  margin-bottom:10px;
+}
+
+.products-title{
+  font-family:"Montserrat", sans-serif;
+  font-weight:800;
+  font-size:2.5rem;
+  color:#0f2740;
+  margin-bottom:20px;
+}
+
+.products-subtitle{
+  max-width:600px;
+  margin:0 auto 60px;
+  color:#555;
+  font-size:1rem;
+}
+
+.products-wrapper{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ✅ NEW: viewport centers and hides overflow so slide works */
+.products-viewport{
+  width:100%;
+  max-width:1100px;     /* keeps the 3 cards centered nicely */
+  margin:0 auto;        /* ✅ center */
+  overflow:hidden;      /* ✅ hides extra cards */
+  padding:0 10px;
+}
+
+/* ✅ NEW: track becomes a flex row and slides */
+.product-track{
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:translateX(0);
+  transition:transform .55s cubic-bezier(.19,1,.22,1);
+  will-change:transform;
+}
+
+/* ✅ each "col-md-4" becomes a slide item in the track */
+.product-slide{
+  flex:0 0 calc(100% / 3); /* 3 cards per view */
+  max-width:calc(100% / 3);
+  padding:0 12px;
+}
+
+.product-card{
+  background:#fff;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.08);
+  transition:all .4s ease;
+  height:100%;
+}
+
+.product-card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 25px 60px rgba(0,0,0,.12);
+}
+
+.product-img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+}
+
+.product-content{
+  padding:25px;
+  text-align:left;
+}
+
+.product-content h5{
+  font-weight:700;
+  margin-bottom:10px;
+  color:#0f2740;
+}
+
+.product-content p{
+  font-size:.9rem;
+  color:#666;
+  margin-bottom:15px;
+}
+
+.product-content a{
+  font-weight:600;
+  color:#1b4332;
+  text-decoration:none;
+}
+
+.product-arrow{
+  position:absolute;
+  background:#1b4332;
+  color:#fff;
+  border:none;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.3s;
+  z-index:5;
+}
+
+.product-arrow:hover{
+  background:#2d6a4f;
+}
+
+.product-arrow.left{ left:-20px; }
+.product-arrow.right{ right:-20px; }
+
+@media(max-width:992px){
+  .product-slide{
+    flex:0 0 50%;
+    max-width:50%;
+  }
+}
+
+@media(max-width:768px){
+  .product-arrow{ display:none; }
+  .product-slide{
+    flex:0 0 100%;
+    max-width:100%;
   }
 }

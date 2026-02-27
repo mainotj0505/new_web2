@@ -24,9 +24,28 @@ html,body{
   height:100%;
   margin:0;
   font-family: Arial, sans-serif;
-  background: var(--cream);
+
+  /* ✅ FIX: make background transparent so photo is visible */
+  background: transparent;
+
   color: var(--text);
   overflow-x: hidden; /* ✅ small safety */
+}
+
+/* =========================================================
+   ✅ PHOTO BACKGROUND (REPLACED VIDEO)
+   ========================================================= */
+.photo-bg{
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+
+  background:
+    radial-gradient(1200px 600px at 15% 10%, rgba(35,65,99,0.55), transparent 60%),
+    radial-gradient(900px 500px at 85% 20%, rgba(95,143,184,0.45), transparent 60%),
+    linear-gradient(180deg, rgba(15,23,42,0.62), rgba(15,23,42,0.40)),
+    url("images/LMCM BLDG.jpg") center/cover no-repeat;
 }
 
 /* ✅ simple topbar (not your hero header) */
@@ -34,7 +53,7 @@ html,body{
   position: sticky;
   top:0;
   z-index: 50;
-  background: rgba(255,255,255,0.92);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(2, 6, 23, 0.06);
 }
@@ -64,6 +83,10 @@ html,body{
 /* ✅ page layout */
 .page{
   padding: 28px 0 60px;
+
+  /* ✅ ensure page content stays above background */
+  position: relative;
+  z-index: 1;
 }
 
 /* ✅ hero strip updated to faded blue gradient */
@@ -78,7 +101,6 @@ html,body{
   position:relative;
 }
 
-/* ✅ nicer blue glow circle */
 .hero-strip::after{
   content:"";
   position:absolute;
@@ -105,8 +127,10 @@ html,body{
 
 .grid{
   display:grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1fr;
   gap: 18px;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 @media (max-width: 991px){
@@ -121,7 +145,6 @@ html,body{
   overflow:hidden;
 }
 
-/* ✅ subtle top edge tint (looks premium) */
 .card::before{
   content:"";
   display:block;
@@ -149,7 +172,6 @@ html,body{
   padding: 18px;
 }
 
-/* ✅ form fields look cleaner + blue focus glow */
 .form-control,
 .custom-select{
   border-radius: 12px;
@@ -193,42 +215,6 @@ textarea.form-control{
   transform: translateY(1px);
 }
 
-.side{
-  padding:18px;
-}
-
-/* ✅ help items: soft blue-tinted background */
-.info-item{
-  display:flex;
-  gap:12px;
-  padding: 14px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, rgba(95,143,184,0.10), rgba(95,143,184,0.06));
-  border: 1px solid rgba(2,6,23,0.06);
-  margin-bottom: 12px;
-}
-
-.info-item i{
-  color: var(--green2);
-  font-size: 1.15rem;
-  margin-top: 2px;
-  width: 22px;
-  text-align:center;
-}
-
-.info-item h3{
-  margin:0;
-  font-size: 0.98rem;
-  font-weight: 800;
-}
-
-.info-item p{
-  margin:4px 0 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-  line-height: 1.35;
-}
-
 .back-link{
   display:inline-flex;
   align-items:center;
@@ -266,16 +252,13 @@ button{
 }
 
 /* =========================================================
-   ✅ ADDED: BUTTON EFFECTS (ALL BUTTONS) — MAINTAINS YOUR UI
+   ✅ BUTTON EFFECTS + TOPBAR EFFECTS (kept as-is)
    ========================================================= */
-
-/* applies to ALL buttons without breaking bootstrap */
 button,
 .btn{
   -webkit-tap-highlight-color: transparent;
 }
 
-/* universal focus ring (keyboard friendly) */
 button:focus,
 .btn:focus{
   outline: none;
@@ -286,7 +269,6 @@ button:focus-visible,
   box-shadow: var(--ring) !important;
 }
 
-/* MAIN BUTTON ENHANCEMENT (your .btn-main) */
 .btn-main{
   position: relative;
   overflow: hidden;
@@ -295,7 +277,6 @@ button:focus-visible,
   box-shadow: 0 10px 24px rgba(15,23,42,0.10);
 }
 
-/* subtle animated shine sweep */
 .btn-main::after{
   content:"";
   position:absolute;
@@ -333,7 +314,6 @@ button:focus-visible,
   filter: brightness(0.98);
 }
 
-/* disabled safety */
 .btn-main:disabled,
 .btn-main[disabled]{
   opacity: .65;
@@ -342,7 +322,6 @@ button:focus-visible,
   transform: none;
 }
 
-/* ICON BUTTON (toggle password) — target by id so HTML stays unchanged */
 #togglePass{
   width: 36px;
   height: 36px;
@@ -365,7 +344,6 @@ button:focus-visible,
   box-shadow: none;
 }
 
-/* make topbar links feel like buttons on hover (optional but nice) */
 .topbar .nav-link{
   position: relative;
   border-radius: 12px;
@@ -378,7 +356,6 @@ button:focus-visible,
   transform: translateY(-1px);
 }
 
-/* back-link underline effect (still link, but button-ish) */
 .back-link{
   position: relative;
   padding: 2px 0;
@@ -400,16 +377,11 @@ button:focus-visible,
   width:100%;
 }
 
-/* =========================================================
-   ✅ ADDED: HEADER DESIGN + EFFECTS (TOPBAR)
-   ========================================================= */
-
-/* fancy gradient hairline under the topbar */
 .topbar{
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255,255,255,0.72);
+  background: #5f8fb8;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(2, 6, 23, 0.06);
@@ -428,13 +400,11 @@ button:focus-visible,
   pointer-events:none;
 }
 
-/* when scrolling, topbar becomes more “solid” + shadow */
 .topbar.is-scrolled{
   background: rgba(255,255,255,0.90);
   box-shadow: 0 14px 35px rgba(15,23,42,0.14);
 }
 
-/* brand micro animation + glow */
 .brand{
   position: relative;
   transition: transform .18s ease, filter .18s ease;
@@ -445,7 +415,6 @@ button:focus-visible,
   filter: drop-shadow(0 10px 18px rgba(35,65,99,0.18));
 }
 
-/* animate the logo slightly on hover */
 .brand img{
   transition: transform .2s ease;
 }
@@ -454,7 +423,6 @@ button:focus-visible,
   transform: rotate(-2deg) scale(1.02);
 }
 
-/* nav underline animation */
 .topbar .nav-link{
   position: relative;
   overflow: hidden;
@@ -479,7 +447,6 @@ button:focus-visible,
   transform: scaleX(1);
 }
 
-/* subtle “pulse” on active click */
 .topbar .nav-link:active{
   transform: translateY(0px) scale(0.98);
 }

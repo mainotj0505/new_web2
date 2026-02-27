@@ -1,3 +1,4 @@
+/* membership_page.css */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap");
 
 :root{
@@ -8,22 +9,54 @@
   --bg:#0b1220;
 
   /* Paper header vibe (purple strip like your form) */
-  --purple:#3b2a7a;
-  --purple2:#2c1f63;
+  --purple:#4990e1;
+  --purple2:#15355a;
 
   --radius:14px;
   --shadow:0 18px 50px rgba(2,6,23,.30);
+
+  /* ✅ NEW: Background image path (edit this file name/path) */
+  --page-bg-image: url("images/LMCM BLDG.jpg");
 }
 
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
+
 body{
   margin:0;
   font-family:"Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: radial-gradient(1200px 600px at 15% 10%, rgba(99,102,241,.25), transparent 60%),
-              radial-gradient(900px 500px at 85% 20%, rgba(168,85,247,.20), transparent 55%),
-              linear-gradient(180deg, #070b16, #0b1220);
-  color:#e5e7eb;
+  color:#ffffff;
+
+  /* ✅ CHANGED: Use image background (fallback color kept) */
+  background: var(--bg);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ✅ NEW: Background image layer + dark overlay for readability */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--page-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.05);
+}
+
+/* ✅ NEW: Overlay layer to keep the form readable */
+body::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(1200px 600px at 15% 10%, rgba(7, 1, 78, 0.2), transparent 60%),
+    radial-gradient(900px 500px at 85% 20%, rgba(0, 32, 159, 0.201), transparent 55%),
+    linear-gradient(180deg, rgba(7,11,22,.82), rgba(11,18,32,.92));
+  backdrop-filter: blur(1.5px);
 }
 
 /* Topbar */
@@ -31,9 +64,9 @@ body{
   position:sticky;
   top:0;
   z-index:50;
-  background:rgba(10,15,30,.72);
+  background:rgba(244, 245, 245, 0.607);
   backdrop-filter: blur(10px);
-  border-bottom:1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(234, 230, 230, 0.08);
 }
 .brand{
   display:flex;
@@ -43,7 +76,7 @@ body{
   letter-spacing:.3px;
 }
 .brand img{
-  width:34px;
+  width:60px;
   height:34px;
   border-radius:10px;
   object-fit:cover;
@@ -81,6 +114,16 @@ body{
   box-shadow: var(--shadow);
   border:1px solid rgba(255,255,255,.10);
 }
+
+/* ✅ ADDED: make header text white */
+.form-header,
+.form-header .header-title,
+.form-header .header-sub,
+.form-header .code-label,
+.form-header .badge-pill{
+  color:#ffffff !important;
+}
+
 .header-title{
   font-size:1.25rem;
   font-weight:900;
@@ -476,6 +519,7 @@ textarea.field{ resize:vertical; }
 /* Print styling */
 @media print{
   body{ background:#fff; }
+  body::before, body::after{ display:none !important; } /* ✅ NEW: prevent printing the background */
   .topbar, .toolbar, .footer { display:none !important; }
   .page{ padding:0; }
   .form-header{ box-shadow:none; border-radius:0; }
@@ -510,4 +554,3 @@ textarea.field{ resize:vertical; }
   .grid-4 .box, .grid-5 .box{ border-right:none; }
   .small-field{ width:100%; }
 }
-

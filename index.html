@@ -14,7 +14,6 @@
 
 <body>
     <div class="bg-zoom-container"></div>
-
     <canvas id="particle-canvas"></canvas>
     <div class="grain-overlay"></div>
     <div class="geometric-overlay"></div>
@@ -25,16 +24,16 @@
         </div>
         <nav class="d-flex">
             <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">About Us</a>
             <a href="#" class="nav-link">Products</a>
             <a href="#" class="nav-link">Loans</a>
-            <a href="#" class="nav-link">Membership</a>
-            <a href="#about" class="nav-link">About Us</a>
+            <a href="#about" class="nav-link">Membership</a>
         </nav>
     </header>
 
     <main id="main-content">
 
-        <!-- ============== SECTION 1 (HERO) ============== -->
+        <!-- HERO -->
         <section class="hero-section">
             <div class="hero-container">
                 <h1 id="typing-effect">LIMCOMA MULTI-PURPOSE COOPERATIVE</h1>
@@ -50,39 +49,198 @@
             </div>
         </section>
 
-        <!-- ✅ SECTION 2 (ABOUT) -->
+        <!-- ABOUT -->
         <section id="about" class="about-section">
             <div class="container about-wrap">
                 <div class="row align-items-center">
                     <div class="col-lg-6 about-content reveal-on-scroll">
                         <div class="about-kicker about-anim">ABOUT LIMCOMA</div>
-
                         <h2 class="about-title about-title-reveal about-anim">
                             A Partner in Your Farming<br>Success
                         </h2>
-
                         <p class="about-text about-anim">
                             LIMCOMA is a multipurpose cooperative dedicated to uplifting the lives of Filipino farmers.
                             We provide top-tier animal feeds formulated for optimal growth and financial solutions
                             tailored to the unique cycles of agriculture.
                         </p>
-
                         <ul class="about-list">
                             <li class="about-anim"><i class="fas fa-check-circle"></i> Farmer-owned and operated cooperative</li>
                             <li class="about-anim"><i class="fas fa-check-circle"></i> High-quality, affordable feed production</li>
                             <li class="about-anim"><i class="fas fa-check-circle"></i> Low-interest agricultural loans</li>
                         </ul>
-
                         <a href="#" class="about-btn about-anim">Learn More About Us</a>
                     </div>
 
-                    <!-- RIGHT IMAGE (frame removed, photo only) -->
                     <div class="col-lg-6 about-image-col reveal-on-scroll">
-                        <img src="images/superhappypig.jpg" alt="About LIMCOMA" class="about-image">
+                        <img src="images/painting.jpg" alt="About LIMCOMA" class="about-image">
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- ✅ NEW AUTO-PLAY WAVY TEXT CAROUSEL (BETWEEN 2ND AND 3RD SECTION) -->
+        <section class="wavy-text-band" aria-label="Auto-play text carousel band">
+            <div class="wavy-wrap">
+                <!-- top wave -->
+                <div class="wave wave-top" aria-hidden="true">
+                    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M0,64 C150,120 350,0 600,64 C850,128 1050,32 1200,64 L1200,0 L0,0 Z"></path>
+                    </svg>
+                </div>
+
+                <div class="wavy-viewport">
+                    <div class="wavy-track" id="wavyTrack">
+                        <!-- one set (JS will clone for seamless loop) -->
+                        <div class="wavy-item">
+                            <div class="wavy-small">The</div>
+                            <div class="wavy-big">LIMCOMA</div>
+                            <div class="wavy-big">MULTI-PURPOSE</div>
+                            <div class="wavy-big">COOPERATIVE</div>
+                            <div class="wavy-est">EST. 1984</div>
+                        </div>
+
+                        <div class="wavy-item">
+                            <div class="wavy-small">The</div>
+                            <div class="wavy-big">LIMCOMA</div>
+                            <div class="wavy-big">MULTI-PURPOSE</div>
+                            <div class="wavy-big">COOPERATIVE</div>
+                            <div class="wavy-est">EST. 1984</div>
+                        </div>
+
+                        <div class="wavy-item">
+                            <div class="wavy-small">The</div>
+                            <div class="wavy-big">LIMCOMA</div>
+                            <div class="wavy-big">MULTI-PURPOSE</div>
+                            <div class="wavy-big">COOPERATIVE</div>
+                            <div class="wavy-est">EST. 1984</div>
+                        </div>
+
+                        <div class="wavy-item">
+                            <div class="wavy-small">The</div>
+                            <div class="wavy-big">LIMCOMA</div>
+                            <div class="wavy-big">MULTI-PURPOSE</div>
+                            <div class="wavy-big">COOPERATIVE</div>
+                            <div class="wavy-est">EST. 1984</div>
+                        </div>
+
+                        <div class="wavy-item">
+                            <div class="wavy-small">The</div>
+                            <div class="wavy-big">LIMCOMA</div>
+                            <div class="wavy-big">MULTI-PURPOSE</div>
+                            <div class="wavy-big">COOPERATIVE</div>
+                            <div class="wavy-est">EST. 1984</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- bottom wave -->
+                <div class="wave wave-bottom" aria-hidden="true">
+                    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M0,64 C150,0 350,120 600,64 C850,8 1050,96 1200,64 L1200,120 L0,120 Z"></path>
+                    </svg>
+                </div>
+            </div>
+        </section>
+        <!-- ✅ END NEW BAND -->
+
+        <!-- =================== PRODUCTS SECTION =================== -->
+        <section class="products-section">
+            <div class="container text-center">
+                <div class="products-kicker">OUR PRODUCTS</div>
+                <h2 class="products-title">Premium Animal Feeds</h2>
+                <p class="products-subtitle">
+                    Scientifically formulated feeds to ensure the health and maximum growth of your livestock.
+                </p>
+
+                <div class="products-wrapper">
+
+                    <button class="product-arrow left" type="button" aria-label="Previous products">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <!-- ✅ NEW: viewport (so slider hides overflow) -->
+                    <div class="products-viewport">
+                        <div class="row product-cards product-track">
+
+                            <!-- SLIDE 1 (3 CARDS) -->
+                            <div class="col-md-4 product-slide">
+                                <div class="product-card">
+                                    <img src="images/cattle.jpg" class="product-img" alt="Cattle Feeds">
+                                    <div class="product-content">
+                                        <h5>Cattle Feeds</h5>
+                                        <p>Complete nutrition for cattle from calf to mature. Ensures rapid growth and health.</p>
+                                        <a href="#">View Products →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 product-slide">
+                                <div class="product-card">
+                                    <img src="images/broiler.jpg" class="product-img" alt="Broiler Feeds">
+                                    <div class="product-content">
+                                        <h5>Premium Broiler Feeds</h5>
+                                        <p>Balanced diet for broilers and layers. Promotes healthy feathers.</p>
+                                        <a href="#">View Products →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 product-slide">
+                                <div class="product-card">
+                                    <img src="images/aqua.jpg" class="product-img" alt="Fish Feeds">
+                                    <div class="product-content">
+                                        <h5>Fish Floater Feeds</h5>
+                                        <p>Specialized floating feeds for tilapia and milkfish. Maximizes yield.</p>
+                                        <a href="#">View Products →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ✅ SLIDE 2 (ADDED 3 MORE CARDS) -->
+                            <div class="col-md-4 product-slide">
+                                <div class="product-card">
+                                    <img src="images/cattle.jpg" class="product-img" alt="Hog Feeds">
+                                    <div class="product-content">
+                                        <h5>Hog Feeds</h5>
+                                        <p>Balanced feed mix for stronger growth, better digestion, and healthier hogs.</p>
+                                        <a href="#">View Products →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 product-slide">
+                                <div class="product-card">
+                                    <img src="images/broiler.jpg" class="product-img" alt="Layer Feeds">
+                                    <div class="product-content">
+                                        <h5>Layer Feeds</h5>
+                                        <p>Formulated to support egg production, shell quality, and hen wellness.</p>
+                                        <a href="#">View Products →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 product-slide">
+                                <div class="product-card">
+                                    <img src="images/aqua.jpg" class="product-img" alt="Starter Feeds">
+                                    <div class="product-content">
+                                        <h5>Starter Feeds</h5>
+                                        <p>High-protein starter feeds for young livestock to build strength early.</p>
+                                        <a href="#">View Products →</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <button class="product-arrow right" type="button" aria-label="Next products">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                </div>
+            </div>
+        </section>
+        <!-- =================== END PRODUCTS =================== -->
 
     </main>
 
@@ -96,19 +254,15 @@
 
             <div class="social-links mb-2">
                 Follow us:
-
                 <a href="https://www.facebook.com/limcomacooperative" target="_blank" class="mx-2">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-
-                <a href="#" class="mx-2"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="mx-2"><i class="fab fa-youtube"></i></a>
             </div>
 
             <div class="contact-links mb-2">
-                <a href="mailto:limcomamultipurposecooperative@gmail.com"><i class="fas fa-envelope"></i> limcomamultipurposecooperative@gmail.com</a>
-                <span class="mx-2">|</span>
-                <a href="tel:+639175813189"><i class="fas fa-phone-alt"></i> (043 756-2578)</a>
+                <a href="mailto:limcomamultipurposecooperative@gmail.com">
+                    <i class="fas fa-envelope"></i> limcomamultipurposecooperative@gmail.com
+                </a>
             </div>
         </div>
     </footer>

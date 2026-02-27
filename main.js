@@ -132,10 +132,7 @@ window.addEventListener("DOMContentLoaded", () => {
     applyAboutStagger();
 
     /* =========================================================
-       ✅ ABOUT PHOTO (SUPERHAPPYPIG) — NEW "COMES FROM OUTSIDE"
-       - Starts OFFSCREEN while you're in Hero
-       - Slides in as you scroll into About
-       - Keeps your parallax effect after
+       ✅ ABOUT PHOTO — FRAME REMOVED + LANDSCAPE (NOT CROPPED)
        ========================================================= */
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -143,41 +140,35 @@ window.addEventListener("DOMContentLoaded", () => {
     const aboutImg = document.querySelector('.about-image');
 
     if (aboutImg && aboutSection) {
-        // Add frame class (your existing feature, no HTML change)
         const parent = aboutImg.parentElement;
-        if (parent && !parent.classList.contains('about-image-frame')) {
-            parent.classList.add('about-image-frame');
+        if (parent && parent.classList.contains('about-image-frame')) {
+            parent.classList.remove('about-image-frame');
         }
 
-        // Defaults for new entrance variables (CSS reads these)
-        aboutImg.style.setProperty('--about-enter-x', '220px');     // from outside (right)
-        aboutImg.style.setProperty('--about-enter-y', '120px');     // from below
-        aboutImg.style.setProperty('--about-enter-rot', '8deg');    // slight rotate
-        aboutImg.style.setProperty('--about-enter-opacity', '0');   // hidden
+        aboutImg.style.setProperty('--about-enter-x', '220px');
+        aboutImg.style.setProperty('--about-enter-y', '120px');
+        aboutImg.style.setProperty('--about-enter-rot', '8deg');
+        aboutImg.style.setProperty('--about-enter-opacity', '0');
 
         let ticking = false;
 
         const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-        const smoothstep = (t) => t * t * (3 - 2 * t); // nice easing
+        const smoothstep = (t) => t * t * (3 - 2 * t);
 
         const updateAboutImage = () => {
             ticking = false;
             if (prefersReduced) return;
 
-            // --- 1) Entrance progress based on scroll toward About section ---
             const rect = aboutSection.getBoundingClientRect();
             const vh = window.innerHeight || document.documentElement.clientHeight;
 
-            // When About is far below viewport -> progress 0
-            // When About top reaches ~55% of viewport -> progress 1 (image settled)
-            const startPoint = vh * 0.95; // start anim when section is near bottom
-            const endPoint = vh * 0.55;   // fully in place
+            const startPoint = vh * 0.95;
+            const endPoint = vh * 0.55;
 
             const raw = (startPoint - rect.top) / (startPoint - endPoint);
             const t = clamp(raw, 0, 1);
             const ease = smoothstep(t);
 
-            // Coming from outside → to position
             const fromX = 240, toX = 0;
             const fromY = 140, toY = 0;
             const fromRot = 10, toRot = 0;
@@ -193,14 +184,12 @@ window.addEventListener("DOMContentLoaded", () => {
             aboutImg.style.setProperty('--about-enter-rot', `${r}deg`);
             aboutImg.style.setProperty('--about-enter-opacity', `${o}`);
 
-            // --- 2) Your original parallax (kept) ---
             const imgRect = aboutImg.getBoundingClientRect();
             const center = imgRect.top + imgRect.height / 2;
             const delta = (center - vh / 2) / (vh / 2);
 
             const max = 14;
             const offset = Math.max(-max, Math.min(max, -delta * max));
-
             aboutImg.style.setProperty('--about-parallax', `${offset}px`);
         };
 
@@ -211,7 +200,6 @@ window.addEventListener("DOMContentLoaded", () => {
             }
         };
 
-        // Init + listeners
         updateAboutImage();
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', updateAboutImage);
@@ -241,5 +229,96 @@ window.addEventListener("DOMContentLoaded", () => {
             heroButton.style.transform = '';
         });
     }
-});
 
+    /* =========================================================
+       ✅ PRODUCTS SLIDER (NEW)
+       ========================================================= */
+    const track = document.querySelector('.product-track');
+    const slides = document.querySelectorAll('.product-slide');
+    const btnLeft = document.querySelector('.product-arrow.left');
+    const btnRight = document.querySelector('.product-arrow.right');
+
+    if (track && slides.length && btnLeft && btnRight) {
+        const getPerView = () => {
+            const w = window.innerWidth;
+            if (w <= 768) return 1;
+            if (w <= 992) return 2;
+            return 3;
+        };
+
+        let index = 0;
+
+        const maxIndex = () => {
+            const perView = getPerView();
+            return Math.max(0, Math.ceil(slides.length / perView) - 1);
+        };
+
+        const apply = () => {
+            const x = index * 100;
+            track.style.transform = `translateX(-${x}%)`;
+        };
+
+        const clampIndex = () => {
+            const m = maxIndex();
+            if (index < 0) index = m;
+            if (index > m) index = 0;
+        };
+
+        btnRight.addEventListener('click', () => {
+            index += 1;
+            clampIndex();
+            apply();
+        });
+
+        btnLeft.addEventListener('click', () => {
+            index -= 1;
+            clampIndex();
+            apply();
+        });
+
+        window.addEventListener('resize', () => {
+            const m = maxIndex();
+            if (index > m) index = m;
+            apply();
+        });
+
+        apply();
+    }
+
+    /* =========================================================
+       ✅ NEW: WAVY TEXT CAROUSEL - SEAMLESS LOOP HELPER
+       (keeps your band smooth on any screen size)
+       ========================================================= */
+    const wavyTrack = document.getElementById("wavyTrack");
+    if (wavyTrack) {
+        const buildWavyLoop = () => {
+            // Remove clones first
+            [...wavyTrack.querySelectorAll("[data-clone='1']")].forEach(n => n.remove());
+
+            const viewport = wavyTrack.parentElement;
+            if (!viewport) return;
+
+            const viewportW = viewport.getBoundingClientRect().width;
+            const baseItems = [...wavyTrack.children].filter(n => !n.dataset.clone);
+
+            // Ensure we have enough width to loop seamlessly
+            let trackW = wavyTrack.scrollWidth;
+            while (trackW < viewportW * 2.2) {
+                baseItems.forEach(item => {
+                    const clone = item.cloneNode(true);
+                    clone.dataset.clone = "1";
+                    wavyTrack.appendChild(clone);
+                });
+                trackW = wavyTrack.scrollWidth;
+            }
+
+            // Move distance = half of total so loop looks continuous
+            // (CSS uses --wavy-to as final translateX)
+            const half = Math.round(wavyTrack.scrollWidth / 2);
+            wavyTrack.style.setProperty("--wavy-to", `-${half}px`);
+        };
+
+        buildWavyLoop();
+        window.addEventListener("resize", buildWavyLoop);
+    }
+});
